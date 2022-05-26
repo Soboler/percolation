@@ -59,7 +59,7 @@ func (exp *Experiment) run() float64 {
 	exp.timers["run_Start"] = time.Now()
 
 	for true {
-		var num = exp.random.get(exp.s - 1 - exp.step)
+		var num = exp.random.get(exp.s - 2 - exp.step)
 		var v = exp.notActive[num]
 		exp.step += 1
 		exp.active[v] = struct{}{}
