@@ -4,7 +4,7 @@ import (
 	"fmt"
 )
 
-const expCount = 1000
+const expCount = 10
 
 func main() {
 	var random = RNG{}
@@ -15,11 +15,11 @@ func main() {
 		experiment.prepare(random, 1000, 1000)
 		var result = experiment.run()
 
-		fmt.Println("=====================")
+		//fmt.Println("=====================")
 		fmt.Println(result)
-		fmt.Print("PrepareTime:   ")
-		fmt.Println(experiment.timers["prepare_End"].Sub(experiment.timers["prepare_Start"]))
-		fmt.Print("RunTime:   ")
-		fmt.Print(experiment.timers["run_End"].Sub(experiment.timers["run_Start"]))
+		//fmt.Print("PrepareTime:   ")
+		//fmt.Println(experiment.timers["prepare_End"].Sub(experiment.timers["prepare_Start"]))
+		//fmt.Print("RunTime:   ")
+		//fmt.Println(experiment.timers["run_End"].Sub(experiment.timers["run_Start"]))
 	}
 }

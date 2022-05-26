@@ -1,7 +1,6 @@
 package main
 
 import (
-	"fmt"
 	"time"
 )
 
@@ -76,10 +75,13 @@ func (exp *Experiment) run() float64 {
 		if exp.dsu.FindSet(0) == exp.dsu.FindSet(exp.s-1) {
 			break
 		}
-		exp.notActive = append(exp.notActive[0:num], exp.notActive[num+1:]...)
+
+		//exp.notActive = append(exp.notActive[0:num], exp.notActive[num+1:]...)
+		exp.notActive[num], exp.notActive[exp.s-2-exp.step] = exp.notActive[exp.s-2-exp.step], exp.notActive[num]
+
 	}
 
-	fmt.Println(len(exp.active) - 2)
+	//fmt.Println(len(exp.active) - 2)
 
 	exp.timers["run_End"] = time.Now()
 	return float64(len(exp.active)-2) / float64(exp.s-2)
