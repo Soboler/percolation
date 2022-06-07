@@ -76,7 +76,7 @@ func (exp *Experiment) run() float64 {
 			break
 		}
 
-		exp.notActive = append(exp.notActive[0:num], exp.notActive[num+1:]...)
+		exp.notActive[num], exp.notActive[exp.s-2-exp.step] = exp.notActive[exp.s-2-exp.step], exp.notActive[num]
 	}
 
 	exp.timers["run_End"] = time.Now()

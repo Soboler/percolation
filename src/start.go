@@ -2,7 +2,7 @@ package main
 
 import "fmt"
 
-const expCount = 1
+const expCount = 100
 const n = 1000
 const m = 1000
 
