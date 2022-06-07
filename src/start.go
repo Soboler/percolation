@@ -1,25 +1,24 @@
 package main
 
-import (
-	"fmt"
-)
+import "fmt"
 
-const expCount = 10
+const expCount = 1
+const n = 1000
+const m = 1000
 
 func main() {
 	var random = RNG{}
 	random.create()
 
+	var count int64
 	for i := 0; i < expCount; i++ {
 		var experiment = Experiment{}
-		experiment.prepare(random, 1000, 1000)
-		var result = experiment.run()
+		experiment.prepare(random, m, n)
+		experiment.run()
 
-		//fmt.Println("=====================")
-		fmt.Println(result)
-		//fmt.Print("PrepareTime:   ")
-		//fmt.Println(experiment.timers["prepare_End"].Sub(experiment.timers["prepare_Start"]))
-		//fmt.Print("RunTime:   ")
-		//fmt.Println(experiment.timers["run_End"].Sub(experiment.timers["run_Start"]))
+		count += int64(experiment.step)
+		//var result = experiment.run()
+		//fmt.Println(result)
 	}
+	fmt.Println(float64(count) / float64(m*n*expCount))
 }
