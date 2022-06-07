@@ -2,7 +2,6 @@ package main
 
 import (
 	"flag"
-	"fmt"
 	"log"
 	"os"
 	"runtime"
@@ -27,21 +26,7 @@ func Benchmark(b *testing.B) {
 		defer pprof.StopCPUProfile()
 	}
 
-	var random = RNG{}
-	random.create()
-
-	for i := 0; i < expCount; i++ {
-		var experiment = Experiment{}
-		experiment.prepare(random, 10000, 10000)
-		var result = experiment.run()
-
-		fmt.Println("=====================")
-		fmt.Println(result)
-		fmt.Print("PrepareTime:   ")
-		fmt.Println(experiment.timers["prepare_End"].Sub(experiment.timers["prepare_Start"]))
-		fmt.Print("RunTime:   ")
-		fmt.Print(experiment.timers["run_End"].Sub(experiment.timers["run_Start"]))
-	}
+	main()
 
 	if *memprofile != "" {
 		f, err := os.Create(*memprofile)
