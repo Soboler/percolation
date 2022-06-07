@@ -12,7 +12,7 @@ type Experiment struct {
 	s      int
 
 	dsu       DSU
-	active    map[int]struct{}
+	active    []bool
 	notActive []int
 	step      int
 }
@@ -33,9 +33,11 @@ func (exp *Experiment) prepare(r RNG, m int, n int) {
 }
 
 func (exp *Experiment) createActive() {
-	exp.active = make(map[int]struct{})
-	exp.active[0] = struct{}{}
-	exp.active[exp.s-1] = struct{}{}
+	for i := 0; i < exp.s; i++ {
+		exp.active = append(exp.active, false)
+	}
+	exp.active[0] = true
+	exp.active[exp.s-1] = true
 }
 
 func (exp *Experiment) createNotActive() {
@@ -61,13 +63,12 @@ func (exp *Experiment) run() float64 {
 		var num = exp.random.get(exp.s - 2 - exp.step)
 		var v = exp.notActive[num]
 		exp.step += 1
-		exp.active[v] = struct{}{}
+		exp.active[v] = true
 
 		var neighbours = exp.getNeighbours(v)
 		for i := 0; i < len(neighbours); i++ {
 			var neighbour = neighbours[i]
-			_, res := exp.active[neighbour]
-			if res {
+			if exp.active[neighbour] {
 				exp.dsu.UnionSets(v, neighbour)
 			}
 		}
@@ -80,7 +81,7 @@ func (exp *Experiment) run() float64 {
 	}
 
 	exp.timers["run_End"] = time.Now()
-	return float64(len(exp.active)-2) / float64(exp.s-2)
+	return float64(exp.step) / float64(exp.s-2)
 }
 
 func (exp *Experiment) getNeighbours(v int) []int {
