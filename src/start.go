@@ -1,8 +1,10 @@
 package main
 
-import "fmt"
+import (
+	"fmt"
+)
 
-const expCount = 100
+const expCount = 10
 const n = 1000
 const m = 1000
 
